@@ -27,4 +27,19 @@ public class KeyValueController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error storing key-value pair: " + e.getMessage());
         }
     }
+
+     // Retrieve a value by key
+    @GetMapping("/dkvs/{key}")
+    public ResponseEntity<String> getKeyValue(@PathVariable String key) {
+        try {
+            String value = keyValueService.get(key);
+            if (value != null) {
+                return ResponseEntity.ok(value);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Key not found.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving value: " + e.getMessage());
+        }
+    }
 }
