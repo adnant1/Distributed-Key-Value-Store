@@ -23,12 +23,14 @@ public class KeyValueController {
         try {
             keyValueService.put(key, value);
             return ResponseEntity.ok("Key-value pair stored successfully.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error storing key-value pair: " + e.getMessage());
-        }
+    }
     }
 
-     // Retrieve a value by key
+    // Retrieve a value by key
     @GetMapping("/dkvs/{key}")
     public ResponseEntity<String> getKeyValue(@PathVariable String key) {
         try {
@@ -38,6 +40,8 @@ public class KeyValueController {
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Key not found.");
             }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving value: " + e.getMessage());
         }
