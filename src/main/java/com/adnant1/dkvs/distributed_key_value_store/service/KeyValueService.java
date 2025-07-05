@@ -20,4 +20,12 @@ public class KeyValueService {
         keyValueStore.put(key, value);
     }
 
+    // Retrieve a value by key
+    public String get(String key) {
+        if (key == null || key.isEmpty()) {
+            throw new IllegalArgumentException("Key cannot be null or empty.");
+        }
+
+        return keyValueStore.get(key);
+    }
 }
