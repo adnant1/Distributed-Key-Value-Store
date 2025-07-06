@@ -32,4 +32,13 @@ public class KeyValueService {
 
         return keyValueStore.get(key);
     }
+
+    // Check if a key exists
+    public boolean containsKey(String key) {
+        if (key == null || key.isEmpty()) {
+            throw new IllegalArgumentException("Key cannot be null or empty.");
+        }
+
+        return keyValueStore.containsKey(key);
+    }
 }
