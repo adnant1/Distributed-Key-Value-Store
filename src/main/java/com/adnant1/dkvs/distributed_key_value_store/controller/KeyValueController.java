@@ -39,19 +39,27 @@ public class KeyValueController {
     @GetMapping("/dkvs/{key}")
     public ResponseEntity<ItemResponse> getKeyValue(@PathVariable String key) {
         try {
+            if (!keyValueService.containsKey(key)) {
+                return ResponseEntity.ok(new ItemResponse(null));
+            }
+
             String value = keyValueService.get(key);
 
-            Map<String, AttributeValue> itemMap = null;
+            Map<String, AttributeValue> itemMap;
             if (value != null) {
                 itemMap = Map.of(
                     "key", new AttributeValue(key),
                     "value", new AttributeValue(value)
                 );
-            }
+            } else {
+            itemMap = Map.of(
+                "key", new AttributeValue(key)
+                // no value attribute
+            );
+        }
 
-            ItemResponse response = new ItemResponse(itemMap);
-            return ResponseEntity.ok(response);
-
+        return ResponseEntity.ok(new ItemResponse(itemMap));
+        
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
