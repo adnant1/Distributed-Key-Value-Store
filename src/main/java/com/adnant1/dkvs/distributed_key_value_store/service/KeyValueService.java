@@ -13,11 +13,15 @@ public class KeyValueService {
             throw new IllegalArgumentException("Key cannot be null or empty.");
         }
 
-        if (value == null) {
-            throw new IllegalArgumentException("Value cannot be null.");
+        if (value != null && value.isEmpty()) {
+            throw new IllegalArgumentException("Value cannot be empty.");
         }
 
-        keyValueStore.put(key, value);
+        if (value != null) {
+            keyValueStore.put(key, value);
+        } else {
+            keyValueStore.put(key, null);
+        }
     }
 
     // Retrieve a value by key
