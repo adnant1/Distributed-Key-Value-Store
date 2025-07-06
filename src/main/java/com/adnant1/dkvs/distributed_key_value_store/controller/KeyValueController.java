@@ -24,7 +24,7 @@ public class KeyValueController {
 
     // Store or update a key-value pair
     @PutMapping("/dkvs/{key}")
-    public ResponseEntity<String> putKeyValue(@PathVariable String key, @RequestBody String value) {
+    public ResponseEntity<String> putKeyValue(@PathVariable String key, @RequestBody(required = false) String value) {
         try {
             keyValueService.put(key, value);
             return ResponseEntity.ok("Key-value pair stored successfully.");
@@ -32,7 +32,7 @@ public class KeyValueController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error storing key-value pair: " + e.getMessage());
-    }
+        }
     }
 
     // Retrieve a value by key
@@ -52,14 +52,14 @@ public class KeyValueController {
                     "value", new AttributeValue(value)
                 );
             } else {
-            itemMap = Map.of(
-                "key", new AttributeValue(key)
-                // no value attribute
-            );
-        }
+                itemMap = Map.of(
+                    "key", new AttributeValue(key)
+                    // no value attribute
+                );
+            }
 
-        return ResponseEntity.ok(new ItemResponse(itemMap));
-        
+            return ResponseEntity.ok(new ItemResponse(itemMap));
+
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
