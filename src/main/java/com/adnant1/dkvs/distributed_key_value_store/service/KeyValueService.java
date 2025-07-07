@@ -13,7 +13,7 @@ public class KeyValueService {
             throw new IllegalArgumentException("Key cannot be null or empty.");
         }
 
-        if (value != null && value.isEmpty()) {
+        if (value != null && value.trim().isEmpty()) {
             throw new IllegalArgumentException("Value cannot be empty.");
         }
 
