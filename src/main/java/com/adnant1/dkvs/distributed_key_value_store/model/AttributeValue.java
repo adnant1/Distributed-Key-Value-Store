@@ -1,6 +1,9 @@
 package com.adnant1.dkvs.distributed_key_value_store.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AttributeValue {
+    @JsonProperty("S")
     private String S;
 
     public AttributeValue() {}
