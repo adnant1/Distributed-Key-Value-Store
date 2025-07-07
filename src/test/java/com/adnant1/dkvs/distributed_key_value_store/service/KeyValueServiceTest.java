@@ -46,10 +46,10 @@ class KeyValueServiceTest {
         String key = "name";
         String value = null;
 
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            keyValueService.put(key, value);
-        });
-        assertEquals("Value cannot be null.", e.getMessage());
+        keyValueService.put(key, value);
+        String retrievedValue = keyValueService.get(key);
+
+        assertEquals(null, retrievedValue);
     }
 
     @Test
