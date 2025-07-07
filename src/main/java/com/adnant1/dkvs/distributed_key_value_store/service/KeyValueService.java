@@ -17,11 +17,7 @@ public class KeyValueService {
             throw new IllegalArgumentException("Value cannot be empty.");
         }
 
-        if (value != null) {
-            keyValueStore.put(key, value);
-        } else {
-            keyValueStore.put(key, null);
-        }
+        keyValueStore.put(key, value);
     }
 
     // Retrieve a value by key
