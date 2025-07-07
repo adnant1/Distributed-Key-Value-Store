@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adnant1.dkvs.distributed_key_value_store.model.AttributeValue;
 import com.adnant1.dkvs.distributed_key_value_store.model.ItemResponse;
+import com.adnant1.dkvs.distributed_key_value_store.model.KeyValueRequest;
 import com.adnant1.dkvs.distributed_key_value_store.service.KeyValueService;
 
 @RestController
@@ -23,9 +24,12 @@ public class KeyValueController {
     }
 
     // Store or update a key-value pair
-    @PutMapping("/dkvs/{key}")
-    public ResponseEntity<String> putKeyValue(@PathVariable String key, @RequestBody(required = false) String value) {
+    @PutMapping("/db")
+    public ResponseEntity<String> putKeyValue(@RequestBody KeyValueRequest request) {
         try {
+            String key = request.getKey();
+            String value = request.getValue();
+
             keyValueService.put(key, value);
             return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
@@ -36,7 +40,7 @@ public class KeyValueController {
     }
 
     // Retrieve a value by key
-    @GetMapping("/dkvs/{key}")
+    @GetMapping("/db/{key}")
     public ResponseEntity<ItemResponse> getKeyValue(@PathVariable String key) {
         try {
             if (!keyValueService.containsKey(key)) {
