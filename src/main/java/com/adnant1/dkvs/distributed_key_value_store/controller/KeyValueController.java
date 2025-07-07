@@ -27,7 +27,7 @@ public class KeyValueController {
     public ResponseEntity<String> putKeyValue(@PathVariable String key, @RequestBody(required = false) String value) {
         try {
             keyValueService.put(key, value);
-            return ResponseEntity.ok("Key-value pair stored successfully.");
+            return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
         } catch (Exception e) {
