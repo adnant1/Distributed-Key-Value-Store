@@ -1,21 +1,23 @@
 package com.adnant1.dkvs.distributed_key_value_store.model;
 
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ItemResponse {
-    private Map<String, AttributeValue> item;
+    @JsonProperty("Item")
+    private Map<String, AttributeValue> Item;
 
     public ItemResponse() {}
 
     public ItemResponse(Map<String, AttributeValue> item) {
-        this.item = item;
+        this.Item = item;
     }
 
     public Map<String, AttributeValue> getItem() {
-        return item;
+        return Item;
     }
 
     public void setItem(Map<String, AttributeValue> item) {
-        this.item = item;
+        this.Item = item;
     }
 }
