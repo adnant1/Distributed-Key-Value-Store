@@ -14,6 +14,7 @@ public class ConsistentHashRing {
         this.nodeToHash = new java.util.HashMap<>();
     }
 
+    // Generates a hash for the given key using MD5 algorithm
     private int hash(String key) {
        try {
            MessageDigest md = MessageDigest.getInstance("MD5");
@@ -31,6 +32,7 @@ public class ConsistentHashRing {
        }
     }
 
+    // Adds a node to the consistent hash ring
     public void addNode(String nodeId) {
         if (nodeId == null || nodeId.isEmpty()) {
             throw new IllegalArgumentException("Node ID cannot be null or empty");
@@ -45,6 +47,7 @@ public class ConsistentHashRing {
         ring.put(nodeHash, nodeId);
     }
 
+    // Removes a node from the consistent hash ring
     public void removeNode(String nodeId) {
         if (nodeId == null || nodeId.isEmpty()) {
             throw new IllegalArgumentException("Node ID cannot be null or empty");
@@ -58,6 +61,7 @@ public class ConsistentHashRing {
         ring.remove(nodeHash);
     }
 
+    // Retrieves the node responsible for the given key
     public String getNodeForKey(String key) {
         if (key == null || key.isEmpty()) {
             throw new IllegalArgumentException("Key cannot be null or empty");
