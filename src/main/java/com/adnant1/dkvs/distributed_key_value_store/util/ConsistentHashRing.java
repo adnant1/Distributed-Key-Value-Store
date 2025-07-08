@@ -19,12 +19,16 @@ public class ConsistentHashRing {
        try {
            MessageDigest md = MessageDigest.getInstance("MD5");
 
+           // Convert the key to bytes and compute the digest
            byte[] digest = md.digest(key.getBytes(StandardCharsets.UTF_8));
+
+           // Use the first 4 bytes of the digest to create a 32-bit integer
            int hash = ((digest[0] & 0xFF) << 24)
                    | ((digest[1] & 0xFF) << 16)
                    | ((digest[2] & 0xFF) << 8)
                    | (digest[3] & 0xFF);
 
+            // Ensure the hash is non-negative
            return hash & 0x7FFFFFFF;
 
        } catch (java.security.NoSuchAlgorithmException e) {
