@@ -46,11 +46,19 @@ public class ConsistentHashRing {
     }
 
     public void removeNode(String nodeId) {
+        if (nodeId == null || nodeId.isEmpty()) {
+            throw new IllegalArgumentException("Node ID cannot be null or empty");
+        }
 
+        Integer nodeHash = nodeToHash.remove(nodeId);
+        if (nodeHash == null) {
+            throw new IllegalArgumentException("Node ID does not exist in the ring");
+        }
+
+        ring.remove(nodeHash);
     }
 
     public String getNodeForKey(String key) {
-
+        
     }
-
 }
