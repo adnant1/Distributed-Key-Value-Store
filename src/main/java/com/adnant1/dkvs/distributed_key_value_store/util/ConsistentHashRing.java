@@ -25,14 +25,24 @@ public class ConsistentHashRing {
                    | (digest[3] & 0xFF);
 
            return hash & 0x7FFFFFFF;
-           
+
        } catch (java.security.NoSuchAlgorithmException e) {
            throw new RuntimeException("MD5 algorithm not found", e);
        }
     }
 
     public void addNode(String nodeId) {
+        if (nodeId == null || nodeId.isEmpty()) {
+            throw new IllegalArgumentException("Node ID cannot be null or empty");
+        }
 
+        int nodeHash = hash(nodeId);
+        if (nodeToHash.containsKey(nodeId)) {
+            throw new IllegalArgumentException("Node ID already exists in the ring");
+        }
+
+        nodeToHash.put(nodeId, nodeHash);
+        ring.put(nodeHash, nodeId);
     }
 
     public void removeNode(String nodeId) {
