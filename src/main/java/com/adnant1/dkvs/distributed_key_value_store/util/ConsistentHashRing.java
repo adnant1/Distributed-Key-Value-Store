@@ -15,7 +15,7 @@ public class ConsistentHashRing {
     }
 
     // Generates a hash for the given key using MD5 algorithm
-    private int hash(String key) {
+    int hash(String key) {
        try {
            MessageDigest md = MessageDigest.getInstance("MD5");
 
