@@ -59,6 +59,21 @@ public class ConsistentHashRing {
     }
 
     public String getNodeForKey(String key) {
-        
+        if (key == null || key.isEmpty()) {
+            throw new IllegalArgumentException("Key cannot be null or empty");
+        }
+
+        if (ring.isEmpty()) {
+            throw new IllegalStateException("No nodes available in the ring");
+        }
+
+        int keyHash = hash(key);
+        Integer nodeHash = ring.ceilingKey(keyHash);
+
+        if (nodeHash == null) {
+            nodeHash = ring.firstKey();
+        }
+
+        return ring.get(nodeHash);
     }
 }
