@@ -5,6 +5,9 @@ import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ConsistentHashRing {
     private final TreeMap<Integer, String> ring;
     private final HashMap<String, Integer> nodeToHash;
