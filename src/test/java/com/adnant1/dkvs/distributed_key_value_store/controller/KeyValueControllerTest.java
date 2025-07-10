@@ -1,13 +1,21 @@
 package com.adnant1.dkvs.distributed_key_value_store.controller;
 
 import com.adnant1.dkvs.distributed_key_value_store.service.KeyValueService;
+import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -16,11 +24,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class KeyValueControllerTest {
 
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        @Primary
+        public ConsistentHashRing mockConsistentHashRing() {
+            return mock(ConsistentHashRing.class);
+        }
+    }
+
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private KeyValueService keyValueService;
+
+    @Autowired
+    private ConsistentHashRing mockHashRing;
+
+    @BeforeEach
+    void setUp() {
+        // Configure mock to always return "nodeA" for any key
+        when(mockHashRing.getNodeForKey(anyString())).thenReturn("nodeA");
+    }
 
     // Test PUT with valid key and value
     @Test
