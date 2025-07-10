@@ -9,6 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
 
+/**
+ * DEPRECATED: This test suite is obsolete.
+ * 
+ * KeyValueService no longer handles routing logic - that's now handled by CoordinatorService.
+ * Dummy data is used to simulate different nodes in the consistent hash ring.
+ * 
+ * The dummy data has been replaced with actual data from the Docker nodes.
+ */
 public class KeyValueServiceIntegrationTest {
     
     private ConsistentHashRing hashRing;
@@ -21,7 +29,7 @@ public class KeyValueServiceIntegrationTest {
         hashRing.addNode("nodeB");
         hashRing.addNode("nodeC");
 
-        keyValueService = new KeyValueService(hashRing);
+        keyValueService = new KeyValueService();
     }
 
     // Helper method to find a key that maps to the given targetNode
