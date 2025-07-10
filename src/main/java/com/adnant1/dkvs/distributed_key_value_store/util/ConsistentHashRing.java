@@ -2,16 +2,16 @@ package com.adnant1.dkvs.distributed_key_value_store.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public class ConsistentHashRing {
     private final TreeMap<Integer, String> ring;
-    private final Map<String, Integer> nodeToHash;
+    private final HashMap<String, Integer> nodeToHash;
 
     public ConsistentHashRing() {
         this.ring = new TreeMap<>();
-        this.nodeToHash = new java.util.HashMap<>();
+        this.nodeToHash = new HashMap<>();
     }
 
     // Generates a hash for the given key using MD5 algorithm
