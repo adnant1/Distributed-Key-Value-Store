@@ -2,11 +2,32 @@ package com.adnant1.dkvs.distributed_key_value_store.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
+
+/**
+ * DEPRECATED: Legacy unit tests for basic KeyValueService functionality.
+ * These tests use mocks to isolate the service from the ConsistentHashRing.
+ * For integration tests with ConsistentHashRing, see KeyValueServiceIntegrationTest.
+ */
 class KeyValueServiceTest {
 
-    private final KeyValueService keyValueService = new KeyValueService();
+    private KeyValueService keyValueService;
+    private ConsistentHashRing hashRing;
+
+    @BeforeEach
+    void setUp() {
+        hashRing = mock(ConsistentHashRing.class);
+        keyValueService = new KeyValueService(hashRing);
+
+        when(hashRing.getNodeForKey(anyString())).thenReturn("nodeA");
+    }
     
     @Test
     void testPutWithValidKeyAndValue() {
