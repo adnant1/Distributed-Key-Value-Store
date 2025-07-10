@@ -12,9 +12,13 @@ import org.junit.jupiter.api.Test;
 import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
 
 /**
- * DEPRECATED: Legacy unit tests for basic KeyValueService functionality.
- * These tests use mocks to isolate the service from the ConsistentHashRing.
- * For integration tests with ConsistentHashRing, see KeyValueServiceIntegrationTest.
+ * DEPRECATED: This test suite is obsolete.
+ * 
+ * KeyValueService no longer handles routing logic - that's now handled by CoordinatorService.
+ * This service now only handles local storage operations.
+ * 
+ * These tests verify the basic local storage functionality but don't test the
+ * real application flow.
  */
 class KeyValueServiceTest {
 
@@ -24,7 +28,7 @@ class KeyValueServiceTest {
     @BeforeEach
     void setUp() {
         hashRing = mock(ConsistentHashRing.class);
-        keyValueService = new KeyValueService(hashRing);
+        keyValueService = new KeyValueService();
 
         when(hashRing.getNodeForKey(anyString())).thenReturn("nodeA");
     }
