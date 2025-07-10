@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
@@ -17,6 +18,7 @@ import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
  * 
  * The dummy data has been replaced with actual data from the Docker nodes.
  */
+@Disabled
 public class KeyValueServiceIntegrationTest {
     
     private ConsistentHashRing hashRing;

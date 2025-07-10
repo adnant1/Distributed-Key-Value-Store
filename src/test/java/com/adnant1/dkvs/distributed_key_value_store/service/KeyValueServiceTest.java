@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.anyString;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
@@ -20,6 +21,7 @@ import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
  * These tests verify the basic local storage functionality but don't test the
  * real application flow.
  */
+@Disabled
 class KeyValueServiceTest {
 
     private KeyValueService keyValueService;

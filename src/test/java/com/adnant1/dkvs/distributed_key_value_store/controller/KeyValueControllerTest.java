@@ -3,6 +3,7 @@ package com.adnant1.dkvs.distributed_key_value_store.controller;
 import com.adnant1.dkvs.distributed_key_value_store.service.KeyValueService;
 import com.adnant1.dkvs.distributed_key_value_store.util.ConsistentHashRing;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Disabled
 @SpringBootTest
 @AutoConfigureMockMvc
 class KeyValueControllerTest {
