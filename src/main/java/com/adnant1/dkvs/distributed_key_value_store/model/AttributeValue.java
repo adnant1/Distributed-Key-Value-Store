@@ -1,22 +1,24 @@
 package com.adnant1.dkvs.distributed_key_value_store.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AttributeValue {
-    @JsonProperty("S")
-    private String S;
+    @JsonIgnore
+    private String s;
 
     public AttributeValue() {}
 
     public AttributeValue(String s) {
-        this.S = s;
+        this.s = s;
     }
 
+    @JsonProperty("S")
     public String getS() {
-        return S;
+        return s;
     }
 
     public void setS(String s) {
-        this.S = s;
+        this.s = s;
     }
 }
