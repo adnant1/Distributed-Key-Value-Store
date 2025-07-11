@@ -5,19 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ItemResponse {
     @JsonProperty("Item")
-    private Map<String, AttributeValue> Item;
+    private Map<String, AttributeValue> item;
 
     public ItemResponse() {}
 
     public ItemResponse(Map<String, AttributeValue> item) {
-        this.Item = item;
+        this.item = item;
     }
 
     public Map<String, AttributeValue> getItem() {
-        return Item;
+        return item;
     }
 
     public void setItem(Map<String, AttributeValue> item) {
-        this.Item = item;
+        this.item = item;
     }
 }
