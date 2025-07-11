@@ -17,6 +17,15 @@ public class ConsistentHashRing {
         this.nodeToHash = new HashMap<>();
     }
 
+    public ConsistentHashRing(String[] initialNodes) {
+        this();
+        if (initialNodes != null) {
+            for (String node : initialNodes) {
+                addNode(node);
+            }
+        }
+    }
+
     // Generates a hash for the given key using MD5 algorithm
     int hash(String key) {
        try {
