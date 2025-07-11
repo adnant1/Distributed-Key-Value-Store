@@ -12,7 +12,7 @@ public class CoordinatorService {
     private final NodeForwardingService nodeForwardingService;
     private final String thisNodeId;
 
-    public CoordinatorService (@Value("${NODE_ID}") String thisNodeId, KeyValueService keyValueService, ConsistentHashRing hashRing, NodeForwardingService nodeForwardingService) {
+    public CoordinatorService (@Value("${NODE_ID:defaultNode}") String thisNodeId, KeyValueService keyValueService, ConsistentHashRing hashRing, NodeForwardingService nodeForwardingService) {
         this.keyValueService = keyValueService;
         this.hashRing = hashRing;
         this.nodeForwardingService = nodeForwardingService;
