@@ -3,6 +3,8 @@ package com.adnant1.dkvs.distributed_key_value_store.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.adnant1.dkvs.distributed_key_value_store.model.AttributeValue;
+import com.adnant1.dkvs.distributed_key_value_store.model.ItemResponse;
 import com.adnant1.dkvs.distributed_key_value_store.model.KeyValueRequest;
 import com.adnant1.dkvs.distributed_key_value_store.model.KeyValueResult;
 
@@ -32,7 +34,15 @@ public class NodeForwardingService {
         String url = String.format("http://%s:8080/db/%s", targetNode, key);
 
         try {
-            return restTemplate.getForObject(url, KeyValueResult.class);
+            ItemResponse response = restTemplate.getForObject(url, ItemResponse.class);
+
+            if (response != null && response.getItem() != null && response.getItem().containsKey("value")) {
+                AttributeValue valueAttr = response.getItem().get("value");
+                String value = valueAttr != null ? valueAttr.getS() : null;
+                return new KeyValueResult(true, value);
+            } else {
+                return new KeyValueResult(false, null);
+            }
 
         } catch (Exception e) {
             throw new RuntimeException("Error forwarding GET request to node " + targetNode, e);
