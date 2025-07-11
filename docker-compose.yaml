@@ -4,7 +4,7 @@ services:
     container_name: node-a
     environment:
       - NODE_ID=node-a
-      - NODE_IDS=node-a,node-b,node-c
+      - NODE_IDS=node-a,node-b,node-c,node-d,node-e
     ports:
       - "8081:8080"
 
@@ -13,7 +13,7 @@ services:
     container_name: node-b
     environment:
       - NODE_ID=node-b
-      - NODE_IDS=node-a,node-b,node-c
+      - NODE_IDS=node-a,node-b,node-c,node-d,node-e
     ports:
       - "8082:8080"
 
@@ -22,6 +22,24 @@ services:
     container_name: node-c
     environment:
       - NODE_ID=node-c
-      - NODE_IDS=node-a,node-b,node-c
+      - NODE_IDS=node-a,node-b,node-c,node-d,node-e
     ports:
       - "8083:8080"
+
+  node-d:
+    build: .
+    container_name: node-d
+    environment:
+      - NODE_ID=node-d
+      - NODE_IDS=node-a,node-b,node-c,node-d,node-e
+    ports:
+      - "8084:8080"
+
+  node-e:
+    build: .
+    container_name: node-e
+    environment:
+      - NODE_ID=node-e
+      - NODE_IDS=node-a,node-b,node-c,node-d,node-e
+    ports:
+      - "8085:8080"
