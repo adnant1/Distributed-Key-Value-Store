@@ -27,6 +27,7 @@ public class NodeForwardingService {
         }
     }
 
+    // Forward a GET request to the target node
 	public KeyValueResult forwardGet(String targetNode, String key) {
         String url = String.format("http://%s:8080/db/%s", targetNode, key);
 
