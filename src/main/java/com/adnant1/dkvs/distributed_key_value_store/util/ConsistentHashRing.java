@@ -1,7 +1,9 @@
 package com.adnant1.dkvs.distributed_key_value_store.util;
 
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ConsistentHashRing {
+    private static final int REPLICATION_FACTOR = 3;
     private final TreeMap<Integer, String> ring;
     private final HashMap<String, Integer> nodeToHash;
 
@@ -46,6 +49,38 @@ public class ConsistentHashRing {
        } catch (java.security.NoSuchAlgorithmException e) {
            throw new RuntimeException("MD5 algorithm not found", e);
        }
+    }
+
+    public ArrayList<String> getReplicasForKey(String key) {
+        if (key == null || key.isEmpty()) {
+            throw new IllegalArgumentException("Key cannot be null or empty");
+        }
+
+        ArrayList<String> replicas = new ArrayList<>();
+        Integer currentHash = hash(key);
+        Integer primaryHash = ring.ceilingKey(currentHash);
+        if (primaryHash == null) {
+            primaryHash = ring.firstKey();
+        }
+
+        String primaryNode = ring.get(primaryHash);
+        replicas.add(primaryNode);
+        currentHash = primaryHash;
+
+        for (int i = 1; i < REPLICATION_FACTOR; i++) {
+            Integer nextHash = ring.higherKey(currentHash);
+            if (nextHash == null) {
+                nextHash = ring.firstKey();
+            }
+
+            String nextNode = ring.get(nextHash);
+            if (!replicas.contains(nextNode)) {
+                replicas.add(nextNode);
+            }
+            currentHash = nextHash;
+        }
+        
+        return replicas;
     }
 
     // Adds a node to the consistent hash ring
